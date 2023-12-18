@@ -58,7 +58,7 @@ Tells java while using performance flags to use ZGC and forces it to never give 
 
 > -XX:+UseG1GC -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:MaxGCPauseMillis=200
 
-Tells java while using stability flags to use G1G3 and make short pauses instead of long ones.
+Tells java while using stability flags to use G1GC and make short pauses instead of long ones.
 
 > -XX:+AlwaysActAsServerClassMachine
 
