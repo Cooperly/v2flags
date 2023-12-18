@@ -34,4 +34,4 @@ java -Xms8G -Xmx8G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptio
 # Liability
 Although speculation as of now, you could arise into additional problems when using these flags and in very rare circumstances, maybe even **corruption.** Not saying it will happen, but it *could* especially if configured incorrectly.
 
-Corrunet / void is not responsible if any damage happens as a result of these flags. Use them at your own risk, your the one responsible.
+void is not responsible if any damage happens as a result of these flags. Use them at your own risk, your the one responsible.
