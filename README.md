@@ -8,7 +8,7 @@ Generally modded servers or large networks will probably benefit the most from p
 
 Smaller servers or clients with limited resources could also see major uplifts with stability flags.
 
-When using these flags you should try to use [GraalVM](https://www.graalvm.org/) (preferably enterprise) as your java runtime ***if possible***
+When using these flags you should try to use [GraalVM](https://www.graalvm.org/) as your java runtime ***if possible***
 
 Some versions have [ZGC](https://github.com/openjdk/zgc) support and some don't, do research, do testing. If you can't get it working with performance flags then just run it with your pre existing java runtime or see if stability flags provide more performance with [GraalVM](https://www.graalvm.org/) than your current runtime with performance flags, pick the faster one out of the two as it could differ per machine.
 # Flags
