@@ -52,17 +52,13 @@ Sets the minimum and maximum memory usage, obvious. Always set these values to t
 
 Allows for the use of most of the flags here.
 
-> -XX:+UseZGC -XX:-ZUncommit
+> -XX:+UseZGC -XX:-ZUncommit -XX:MaxGCPauseMillis=200
 
 Tells java while using performance flags to use ZGC and forces it to never give allocated memory back to the OS to improve speeds.
 
-> -XX:+UseG1GC -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5
+> -XX:+UseG1GC -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:MaxGCPauseMillis=200
 
 Tells java while using stability flags to use G1G3 and make short pauses instead of long ones.
-
-> -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal Dlog4j2.formatMsgNoLookups=true -XX:NmethodSweepActivity=1
-
-Improves server performance in a few ways, too much to explain, don't care.
 
 > -XX:+AlwaysActAsServerClassMachine
 
@@ -84,12 +80,57 @@ Allows a CPU to access local memory faster, may fail on some configurations.
 
 Allows the JVM to prefetch instructions.
 
+> -XX:+PerfDisableSharedMem
 
+Disables other processes from using memory that belongs to the JVM.
 
+> XX:+ParallelRefProcEnabled
 
+Allows for parallel reference processing whenever possible.
 
+> -XX:-UseBiasedLocking
 
-Sets
+Improves performance of un-contended synchronization, also spits an error on startup about depreciation which you ***should ignore***
+
+> -XX:+UseStringDeduplication
+
+Saves some memory by referencing similar string objects instead of keeping duplicates.
+
+> XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA
+
+Enables AES/FMA which improves performance with slightly modern cpu architecture, incompatible on >2009 CPUS
+
+> -XX:+UseCodeCacheFlushing
+
+Removes old methods from cache
+
+> -XX:+UseThreadPriorities
+
+Allows Minecraft or mods/plugins to set priority of a thread, good for C2ME or DimThread
+
+> -XX:ThreadPriorityPolicy=1
+
+Sets threads to "aggressive mode" by setting them to 1
+
+> -XX:+UseLargePages -XX:LargePageSizeInBytes=2M
+
+Allows the processor TLB cache to take a rest. (unhelpful i know)
+
+> -jar server.jar
+
+Tells java what the name of the jar executable is
+
+> "JAVAPATH"
+
+Tells java what java runtime to use
+
+> –nogui
+
+Forces games like minecraft to not display the funky gui, does not matter in non graphical enviroments, I personally remove this flag when running JVM servers on my machine.
+
+> -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal Dlog4j2.formatMsgNoLookups=true -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.TuneInlinerExploration=1 -Dgraal.CompilerConfiguration=enterprise -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+OmitStackTraceInFastThrow XX:+TrustFinalNonStaticFields -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector
+
+These flags are generally either very small [GraalVM](https://www.graalvm.org/) specific optimizations, or they make such ltitle difference in how a JVM app works that they don't deserve documentation on this page for the sake of my own sanity. Search the flag up if you need exact explanations.
 
 # Liability
 Although speculation as of now, you could arise into additional problems when using these flags and in very rare circumstances, maybe even **corruption.** Not saying it will happen, but it *could* especially if configured incorrectly.
