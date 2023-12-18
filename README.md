@@ -24,3 +24,7 @@ will be added later
 ```
 
 *don't forget to adjust -Xms and -Xmx to your server configuration, along with java path and server.jar if applicable*
+
+# Liability
+Although speculation as of now, there's a slight risk of corruption or data loss due slightly less stability when using these flags.
+Corrunet or void is not responsible for any damage as a result of such things happening. Use them in a staging environment where it doesn't matter or at your own risk.
