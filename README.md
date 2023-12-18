@@ -70,7 +70,7 @@ Allocates memory directly to the JVM instead of virtual memory.
 
 > -XX:+DisableExplicitGC
 
-Prevents Minecraft or any mods/plugins from performing a garbage collection on it's own.
+Prevents Minecraft or any mods/plugins from performing garbage collection on it's own.
 
 > -XX:+UseNUMA
 
@@ -133,6 +133,6 @@ Forces games like minecraft to not display the funky gui, does not matter in non
 These flags are generally either very small [GraalVM](https://www.graalvm.org/) specific optimizations, or they make such little difference in how a JVM app works that they don't deserve documentation on this page for the sake of my own sanity. Search the flag up if you need exact explanations.
 
 # Liability
-Although speculation as of now, you could arise into additional problems when using these flags and in very rare circumstances, maybe even **corruption.** Not saying it will happen, but it *could* especially if configured incorrectly.
+Although speculation as of now, you could arise into additional problems when using these flags or any flag modification for that matter and in very rare circumstances, maybe even **corruption.** Not saying it will happen, but it *could* theoretically happen.
 
-void is not responsible if any damage happens as a result of these flags. Use them at your own risk, your the one responsible.
+void is not responsible if any damage happens as a result of these flags. Use them at your own risk.
