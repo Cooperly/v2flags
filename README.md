@@ -74,7 +74,7 @@ Prevents Minecraft or any mods/plugins from performing garbage collection on it'
 
 > -XX:+UseNUMA
 
-Allows a CPU to access local memory faster, may fail on some configurations.
+Tells JVM that the system uses Non-uniform Memory Access (NUMA), increasing the use of lower latency memory on multi-node topologies (Caches or RAM). Only available when used with `-XX:+UseParallelGC`
 
 > -XX:AllocatePrefetchStyle=3
 
