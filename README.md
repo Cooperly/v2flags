@@ -132,7 +132,7 @@ Forces games like minecraft to not display the funky gui, does not matter in non
 
 These flags are generally either [GraalVM](https://www.graalvm.org/) specific optimizations which optimize performance, or they make such little difference in how a JVM app works that they don't deserve documentation on this page for the sake of my own sanity and your time. Search the flag up if you need exact explanations.
 
-# Liability
-Although speculation as of now, you could arise into additional problems when using these flags or any flag modification for that matter and in very rare circumstances, maybe even **corruption.** Not saying it will happen, but it *could* theoretically happen.
+# Notice
+These flags aren't as rigorously tested as something like Aikar's Flags, although the chances are extremely slim, you could encounter problems like crashing or in the extreme worst scenario, even corruption.
 
-void is not responsible if any damage happens as a result of these flags. Use them at your own risk.
+***USE THEM AT YOUR OWN RISK!***
