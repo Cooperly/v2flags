@@ -12,7 +12,7 @@ When using these flags you should try to use [GraalVM](https://www.graalvm.org/)
 
 Some versions have [ZGC](https://github.com/openjdk/zgc) support and some don't, do research, do testing. If you can't get it working with performance flags then just run it with your pre existing java runtime or see if stability flags provide more performance with [GraalVM](https://www.graalvm.org/) than your current runtime with performance flags, pick the faster one out of the two as it could differ per machine.
 # Flags
-- [x] [Vanilla](https://www.minecraft.net/en-us/download/server) (Not recommended, use [Mirai](https://github.com/Dreeam-qwq/Mirai) or [Paper](https://github.com/PaperMC/Paper).)
+- [x] [Vanilla](https://www.minecraft.net/en-us/download/server) (Not recommended, use [Leaf](https://github.com/Winds-Studio/Leaf), [Mirai](https://github.com/Dreeam-qwq/Mirai) or [Paper](https://github.com/PaperMC/Paper).)
 - [x] [Mirai](https://github.com/Dreeam-qwq/Mirai) / [Paper](https://github.com/PaperMC/Paper)
 - [x] [Fabric](https://github.com/FabricMC)
 - [x] [Quilt](https://github.com/QuiltMC)
