@@ -109,7 +109,7 @@ Removes old methods from cache
 
 > -XX:+UseThreadPriorities
 
-Allows Minecraft or mods/plugins to set priority of a thread, good for C2ME or DimThread
+Allows Minecraft or mods/plugins to set priority of a thread, good for Folia, C2ME or DimThread
 
 > -jar server.jar
 
