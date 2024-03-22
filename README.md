@@ -13,7 +13,7 @@ When using these flags you should try to use [GraalVM](https://www.graalvm.org/)
 Some versions have [ZGC](https://github.com/openjdk/zgc) support and some don't, do research, do testing. If you can't get it working with performance flags then just run it with your pre existing java runtime or see if stability flags provide more performance with [GraalVM](https://www.graalvm.org/) than your current runtime with performance flags.
 
 # Heads Up
-Do not rely on these flags as your only source of optimization, yes they could increase your performance up to 50%, but to be brutally honest it's snake oil compared to optimizing your server properly, use this as a cherry on top in terms of performance, not the entire cake itself.
+Do not rely on these flags as your only source of optimization, yes they could theoretically increase your performance up to 50%, but to be brutally honest it's snake oil compared to optimizing your server properly, use this as a cherry on top in terms of performance, not the entire cake itself.
 
 I will have an advanced guide out soon for players who want the absolute best performance with no regard to stability, which is probably not a really good idea but I mean if your absolutely crazy like I am, just go for gold you got nothing to lose. in the meantime use [this](https://github.com/YouHaveTrouble/minecraft-optimization) guide.
 
