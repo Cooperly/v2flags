@@ -25,7 +25,7 @@ I will have an advanced guide out soon for players who want the absolute best pe
 - [x] [Quilt](https://github.com/QuiltMC)
 - [x] [Forge](https://github.com/MinecraftForge/MinecraftForge)
 - [x] [NeoForge](https://github.com/neoforged/NeoForge)
-- [x] Most JVM software, even non minecraft (No guarentee, not recommended.)
+- [x] Most JVM server software, even non-minecraft (No guarantee, not recommended.)
 
 ***Performance Focused / Server / More than 12GB, ZGC:***
 
@@ -57,82 +57,153 @@ java -Xms8G -Xmx8G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptio
 # Explanation
 
 ***Please try not to rely on these explanations, do your own research as I don't know how to explain things due to my anxiety***
+<br>
+***Kudos to Nova for filling some things here with more understandable information***
 
-> -Xms8G -Xmx8G
+> [!NOTE]
+> For most of the flags below `-XX:+UnlockExperimentalVMOptions` and/or `-XX:+UnlockDiagnosticVMOptions` are required.
 
-Sets the minimum and maximum memory usage, obvious. Always set these values to the same number as unused ram is wasted ram in most cases and it increases performance consistancy.
+<br>
 
-> -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions
+> -Xmx8G
 
-Allows for the use of most of the flags here.
+Specifies the maximum amount of memory the JVM may use in gigabytes
 
-> -XX:+UseZGC -XX:-ZUncommit
+<br>
 
-Tells java while using performance flags to use ZGC and forces it to never give allocated memory back to the OS to improve speeds.
+> -Xms8G
+
+Specifies the initial heap size for the JVM in gigabytes
+
+<br>
+
+> [!NOTE] 
+> Setting both -Xms and Xmx to the same size is recommended to improve predictability, and to have less GC cycles.
+
+<br>
+
+> -XX:+UseZGC
+
+Tells the JVM to use the ZGC garbage collector
+
+<br>
+
+> -XX:-ZUncommit 
+
+Stops ZGC from returning memory back to the OS. This can help improve speed as it doesn't have to wait for the OS to reallocate the memory but may also result on undesirably high memory usage and may negatively impact environments where multiple applications are running
+
+<br>
+
+> -XX:MaxGCPauseMillis=200
+
+Tells JVM to try and keep it's GC (Garbage collector) pauses to or under this specified amount of time. However this only a target and not a guarantee. Doesn't work with `-XX:+UseZGC`
+
+<br>
 
 > -XX:+UseG1GC -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:MaxGCPauseMillis=200
 
 Tells java while using stability flags to use G1GC and make short pauses instead of long ones.
 
+<br>
+
 > -XX:+AlwaysActAsServerClassMachine
 
-In certain hardware configurations (lower than 2g) java may force SerialGC which is much slower than G1GC or ZGC, this forces java to always think of the machine as "Server Class"
+Forces java to use garbage collection that would be used with "Server class" hardware. Should show benefits on systems with higher core count CPUs as garbage can be passed of to another thread. `ParallelGC`, `CMS` (Concurrent Mark Sweep) or `G1GC` will be used instead of SerialGC
+
+<br>
 
 > -XX:+AlwaysPreTouch
 
-Allocates memory directly to the JVM instead of virtual memory.
+Pre-touches memory during allocation, causing them to be loaded into physical memory. Can reduce delays accessing newly allocated memory.
+
+<br>
 
 > -XX:+DisableExplicitGC
 
-Prevents mods/plugins from performing garbage collection on it's own.
+Prevents forced GC calls (By a plugin, or other code), only allowing one's by the JVM itself
+
+<br>
 
 > -XX:+UseNUMA
 
 Tells JVM that the system uses Non-uniform Memory Access (NUMA), increasing the use of lower latency memory on multi-node topologies (Caches or RAM). Only available when used with `-XX:+UseParallelGC`
 
+<br>
+
 > -XX:AllocatePrefetchStyle=3
 
-Allows the JVM to prefetch instructions.
+Enables pre-fetching and set's the prefetch style ^[1]
+0 - Disables any pre-fetching
+1 (Default) - Prefetches object fields (Increasing access speed as the fields likely are already loaded into cache)
+2 - Prefetches data right before allocation (Thus reducing latency for access to non-cached data)
+3 - Prefetches data after allocation (Potentially making access to a objects fields faster)
+
+Setting to "3" has been recommend for use with Minecraft as it improves performance  
+
+<br>
 
 > -XX:+PerfDisableSharedMem
 
-Disables other processes from using memory that belongs to the JVM.
+Disables a section of shared memory (A memory mapped file) used for performance statistics. This is done synchronously and can cause performance impacts
+
+<br>
 
 > XX:+ParallelRefProcEnabled
 
 Allows for parallel reference processing whenever possible.
 
+<br>
+
 > -XX:-UseBiasedLocking
 
 Improves performance of un-contended synchronization, also spits an error on startup about depreciation which you ***should ignore***
+
+<br>
 
 > -XX:+UseStringDeduplication
 
 Saves some memory by referencing similar string objects instead of keeping duplicates.
 
+<br>
+
 > XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA
 
 Enables AES/FMA which very slightly improves performance however is incompatible on >2009 CPUS. Unintentionally also fixes a [Geyser bug](https://github.com/GeyserMC/Geyser/issues/3490)
+
+<br>
 
 > -XX:+UseCodeCacheFlushing
 
 Removes old methods from cache
 
+<br>
+
 > -XX:+UseThreadPriorities
 
 Allows a JVM app like minecraft or mods/plugins to set priority of a thread, good for Folia, C2ME or DimThread
+
+<br>
 
 > -jar server.jar
 
 Tells java what the name of the jar executable is
 
+<br>
+
 > –-nogui
 
 Forces games like minecraft to not display the funky gui, does not matter in non graphical enviroments, I personally remove this flag when running JVM servers on my machine.
 
+<br>
+
 > -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal Dlog4j2.formatMsgNoLookups=true -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.TuneInlinerExploration=1 -Dgraal.CompilerConfiguration=enterprise -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+OmitStackTraceInFastThrow XX:+TrustFinalNonStaticFields -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -XX:ThreadPriorityPolicy=1
 
 These flags are generally either [GraalVM](https://www.graalvm.org/) specific optimizations which optimize performance, or they make such little difference in how a JVM app works that they don't deserve documentation on this page for the sake of my own sanity, do your own research.
+
+<br>
+
+> [!NOTE]
+> Not all values and flags may have been explained properly, as information was hard to come by. Again as I said, do your own research.
 
 # Notice
 These flags aren't as rigorously tested as something like Aikar's Flags, although the chances are extremely slim, you could encounter problems like crashing or in the absolute worst case scenario, even corruption.
