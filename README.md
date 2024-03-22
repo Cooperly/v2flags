@@ -50,7 +50,7 @@ java -Xms8G -Xmx8G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptio
 
 *Don't forget to adjust -Xms and -Xmx to your server configuration, along with java path and server.jar if applicable*
 
-**Do not allocate more than 32GB on stability flags, G1GC will start to struggle. Performance flags may go as high as they need but not lower than 12GB.** 
+**Do not allocate more than 32GB on stability flags, G1GC will start to struggle. Performance flags may go as high as they need but not lower than 12GB. Using more than 20GB is generally over-overkill 99.99% of the time unless your in a heavily modded environment** 
 
 *(according to documentation, untested)*
 
