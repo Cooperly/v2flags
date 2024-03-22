@@ -132,12 +132,16 @@ Tells JVM that the system uses Non-uniform Memory Access (NUMA), increasing the 
 
 > -XX:AllocatePrefetchStyle=3
 
-Enables pre-fetching and set's the prefetch style ^[1]
+Enables pre-fetching and set's the prefetch style
+<br>
 0 - Disables any pre-fetching
+<br>
 1 (Default) - Prefetches object fields (Increasing access speed as the fields likely are already loaded into cache)
+<br>
 2 - Prefetches data right before allocation (Thus reducing latency for access to non-cached data)
+<br>
 3 - Prefetches data after allocation (Potentially making access to a objects fields faster)
-
+<br>
 Setting to "3" has been recommend for use with Minecraft as it improves performance  
 
 <br>
@@ -203,7 +207,7 @@ These flags are generally either [GraalVM](https://www.graalvm.org/) specific op
 <br>
 
 > [!NOTE]
-> Not all values and flags may have been explained properly, as information was hard to come by. Again as I said, do your own research.
+> Not all values and flags may have been explained properly, as information was extremely hard to come by and especially in an explainable format, You may get more correct information from other sources.
 
 # Notice
 These flags aren't as rigorously tested as something like Aikar's Flags, although the chances are extremely slim, you could encounter problems like crashing or in the absolute worst case scenario, even corruption.
