@@ -6,16 +6,22 @@ I propose to get rid of it in favor of [ZGC](https://github.com/openjdk/zgc), wh
 # Who should use these flags?
 Generally modded servers or large networks will probably benefit the most from performance flags.
 
-Smaller servers or clients with limited resources could also see major uplifts with stability flags.
+Smaller servers with limited resources could also see major uplifts with stability flags,
+
+And clients can get multiple orders of magnitude better performance and less hitches with client flags.
 
 When using these flags you should try to use [GraalVM](https://www.graalvm.org/) as your java runtime ***if possible***
 
 Some versions have [ZGC](https://github.com/openjdk/zgc) support and some don't, do research, do testing. If you can't get it working with performance flags then just run it with your pre existing java runtime or see if stability flags provide more performance with [GraalVM](https://www.graalvm.org/) than your current runtime with performance flags.
 
-# Heads Up
-Do not rely on these flags as your only source of optimization, yes they could theoretically increase your performance up to 50%, but to be brutally honest it's snake oil compared to optimizing your server properly, use this as a cherry on top in terms of performance, not your entire optimization
+# Stability
+These flags have been rigorously tested to hell and back on Beeper-MC for 4 months straight, and no instability problems have occured as a result of these flags being used so far, only uplifts in performance and consistancy.
 
-I will have an advanced guide out soon for players who want the absolute best performance with no regard to stability, which is probably not a really good idea but I mean if your absolutely crazy like I am, just go for gold you got nothing to lose. in the meantime use [this](https://github.com/YouHaveTrouble/minecraft-optimization) guide.
+
+However keep in mind that your experience with these will differ due to various hardware configurations and they haven't been dragged through the slums like Aikar's flags. 
+
+
+***Use them at your own risk.*** You are on your own and void (aka Cooperly, V2K) or anybody involved (Nova) are not responsible for any damages such as crashes or in the worst case even corruption that come as a result of using these flags.
 
 # Flags
 - [x] [Vanilla](https://www.minecraft.net/en-us/download/server) (Not recommended, use [Leaf](https://github.com/Winds-Studio/Leaf), [Mirai](https://github.com/Dreeam-qwq/Mirai) or [Paper](https://github.com/PaperMC/Paper).)
@@ -27,9 +33,9 @@ I will have an advanced guide out soon for players who want the absolute best pe
 - [x] [NeoForge](https://github.com/neoforged/NeoForge)
 - [x] Most JVM server software, even non-minecraft (No guarantee, not recommended.)
 
-***Performance Focused / Server / More than 12GB, ZGC:***
+***Performance Focused / Server / More than 12GB allocated, ZGC:***
 
-Use these flags only on a server that needs performance that has more than 12GB available. 
+Use these flags only on a server that needs performance that has more than 12GB allocated
 
 (Not suggested for clients unless you have an extremely high class machine)
 
@@ -37,14 +43,27 @@ Use these flags only on a server that needs performance that has more than 12GB 
 java -Xms12G -Xmx12G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:-ZUncommit -XX:-ZProactive -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.TuneInlinerExploration=1 -Dgraal.CompilerConfiguration=enterprise -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:-UseBiasedLocking -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:AllocatePrefetchStyle=1 -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector -jar server.jar –-nogui
 ```
 
-***Stability Focused / Client, Server / Less than 12GB, G1GC:***
+***Stability Focused / Server / Less than 12GB allocated, G1GC:***
 
-Use these flags on a server that prefers stability over performance, or has less than 12GB available 
-
-(Clients *can* work however not tested properly)
-
+Use these flags on a server that prefers stability over performance, or has less than 12GB allocated
 ```java
 java -Xms8G -Xmx8G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:AllocatePrefetchStyle=3 -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.TuneInlinerExploration=1 -Dgraal.CompilerConfiguration=enterprise -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:-UseBiasedLocking -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector -jar server.jar –-nogui
+```
+
+***Performance Focused / Client / Preferably more than 16GB of system memory, ZGC:***
+
+Use these flags on a client that wants additional performance and less hitches.
+<br>
+These are not as rigorously tested as the server flags, but should not have any more problems than the server flags.
+
+
+You may also need to include -Xms5G and -Xmx5G (or whatever memory you want allocated) if you are running this on the vanilla launcher, This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
+
+
+(Use [GraalVM Community JDK 22](https://www.graalvm.org/downloads/) for the best results)
+
+```java
+-XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:-ZUncommit -XX:-ZProactive -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:AllocatePrefetchStyle=1 -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector
 ```
 > Warning `Option UseBiasedLocking was deprecated in version 15.0 and will likely be removed in a future release.` can be completely ignored without consequences, it won't effect anything and is unlikely to be removed anytime soon.
 
@@ -208,8 +227,3 @@ These flags are generally either [GraalVM](https://www.graalvm.org/) specific op
 
 > [!NOTE]
 > Not all values and flags may have been explained properly, as information was extremely hard to come by and especially in an explainable format, You may get more correct information from other sources.
-
-# Notice
-These flags aren't as rigorously tested as something like Aikar's Flags, although the chances are extremely slim, you could encounter problems like crashing or in the absolute worst case scenario, even corruption.
-
-***USE THEM AT YOUR OWN RISK!*** v2k or anybody affiliated is not responsible for any damages as a result of these flags being used, You are on your own and no support will be given.
