@@ -10,8 +10,8 @@ If you quickly want to get to a specific set of flags, since this list is slight
 * [Flags](#flags)
     * [Performance Server (8GB+)](#performance-focused--server--more-than-8gb-allocated-zgc)
     * [Stability Server (>8GB)](#stability-focused--server--less-than-8gb-allocated-g1gc)
-    * [Performance Pterodactyl (8GB+)](#performance-pterodactyl-panel--more-than-8gb-allocated-zgc)
-    * [Stability Pterodactyl (>8GB)](#stability-pterodactyl-panel--less-than-8gb-allocated-g1gc)
+    * [Performance Pterodactyl (8GB+)](#performance-focused--pterodactyl--more-than-8gb-allocated-zgc)
+    * [Stability Pterodactyl (>8GB)](#stability-focused--pterodactyl--less-than-8gb-allocated-g1gc)
     * [Performance Client (4GB+)](#performance-focused--client--preferably-more-than-4gb-allocated-zgc)
     * [Stability Client (>4GB)](#stability-focused--client--less-than-4gb-allocated-g1gc)
 * [(terrible) Explanation](#explanation)
@@ -69,10 +69,10 @@ java -Xms4G -Xmx4G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptio
 ```
 
 
-### ***Performance Pterodactyl Panel / More than 8GB allocated, ZGC:***
+### ***Performance Focused / Pterodactyl / More than 8GB allocated, ZGC:***
 
-Use these flags on Pterodactyl Panel for performance, This is primarily for administrators, customers usually cannot change their server image or flags.
-<br>
+Use these flags on Pterodactyl Panel for performance, This is primarily for administrators, customers usually cannot change their server image or flags, however you could ask and link them to this repo if you really wish to persist for some reason.
+
 Get the [GraalVM Template](https://github.com/Cooperly/v2flags/releases/download/New/Pterodactyl.GraalTemplate.json) egg and add your server.jar manually
 
 Adjust CUTDOWN in startup settings to how much memory you want to reserve to the system to prevent OOMKilling, usually 1-4G should be enough depending on the load.
@@ -83,10 +83,10 @@ If you wish to not reserve memory to the OS for some reason, (i paid for all my 
 java -Xms$(({{SERVER_MEMORY}} - ({{CUTDOWN}})))M -Xmx$(({{SERVER_MEMORY}} - ({{CUTDOWN}})))M -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:-ZUncommit -XX:-ZProactive -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:AllocatePrefetchStyle=1 -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector -jar {{SERVER_JARFILE}} --nogui
 ```
 
-### ***Stability Pterodactyl Panel / Less than 8GB allocated, G1GC:***
+### ***Stability Focused / Pterodactyl / Less than 8GB allocated, G1GC:***
 
 Use these flags on Pterodactyl Panel for stability, for administrators not for customers yada yada yada
-<br>
+
 Get the [GraalVM Template](https://github.com/Cooperly/v2flags/releases/download/New/Pterodactyl.GraalTemplate.json) egg and add your server.jar manually
 
 Adjust CUTDOWN in startup settings to how much memory you want to reserve to the system to prevent OOMKilling, usually 1-4G should be enough.
