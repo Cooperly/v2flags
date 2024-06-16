@@ -1,4 +1,4 @@
-### ***v2flags*** is a blazing fast set of arguments for next generation JVM performance.
+### ***v2flags*** is a blazing fast set of arguments for best in class JVM performance.
 (though your most likely reading this for Minecraft performance lmfaooo :skull:)
 
 Quick Start
@@ -71,7 +71,7 @@ java -Xms4G -Xmx4G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptio
 
 ### ***Performance Focused / Pterodactyl / More than 8GB allocated, ZGC:***
 
-Use these flags on Pterodactyl Panel for performance, This is primarily for administrators, customers usually cannot change their server image or flags, however you could ask and link them to this repo if you really wish to persist for some reason.
+Use these flags on Pterodactyl Panel for performance, This is primarily for administrators, customers usually cannot change their server image or flags, however you could ask and link your host's support team to this repository if you really wish to persist for some reason.
 
 Get the [GraalVM Template](https://github.com/Cooperly/v2flags/releases/download/New/Pterodactyl.GraalTemplate.json) egg and add your server.jar manually
 
