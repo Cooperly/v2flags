@@ -55,7 +55,7 @@ However keep in mind that your experience with these will differ due to various 
 
 ### ***Performance Focused / Server / More than 8GB allocated, ZGC:***
 
-Use these flags on a server that wants next gen performance gain while having more than 8GB allocated
+Use these flags on a server that wants a pretty large performance gain while having more than 8GB allocated
 
 ```java
 java -Xms8G -Xmx8G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:-ZUncommit -XX:-ZProactive -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.TuneInlinerExploration=1 -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:-UseBiasedLocking -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:AllocatePrefetchStyle=1 -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector -jar server.jar –-nogui
@@ -99,7 +99,7 @@ java -Xms$(({{SERVER_MEMORY}} - ({{CUTDOWN}})))M -Xmx$(({{SERVER_MEMORY}} - ({{C
 
 ### ***Performance Focused / Client / Preferably more than 4GB allocated, ZGC:***
 
-Use these flags on a high class client that wants additional performance and less hitches, especially while using mods like ViveCraft.
+Use these flags on a high end client that wants additional performance and less hitches, especially while using mods like ViveCraft.
 <br>
 These are not as rigorously tested as the server flags, but no additional issues should arise under normal circumstances. 
 
@@ -113,7 +113,7 @@ You may also need to include -Xms4G and -Xmx4G (or whatever memory you want allo
 
 Use these flags on a weaker client that wants a bit of additional performance, while keeping the game relatively stable.
 <br>
-These won't give you less hitches, and don't generally have as much of an impact as Performance Focused.
+These won't give you as much of an impact as Performance Focused, and hitches while reduced could still show up. 
 
 You may also need to include -Xms2G and -Xmx2G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (just don't) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
 
