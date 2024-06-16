@@ -1,9 +1,27 @@
-# Why not just use [Aikar](https://github.com/aikar)'s flags?
+### ***v2flags*** is a blazing fast set of arguments for next generation JVM performance.
+(though your most likely reading this for Minecraft performance lmfaooo :skull:)
+
+Quick Start
+=================
+If you quickly want to get to a specific set of flags, since this list is slightly cluttered.
+* [Why not Aikar?](#why-not-just-use-aikars-flags)
+* [For Who?](#who-should-use-these-flags)
+* [Stability + Risks](#stability--risks)
+* [Flags](#flags)
+    * [Performance Server (8GB+)](#performance-focused--server--more-than-8gb-allocated-zgc)
+    * [Stability Server (>8GB)](#stability-focused--server--less-than-8gb-allocated-g1gc)
+    * [Performance Pterodactyl (8GB+)](#performance-pterodactyl-panel--more-than-8gb-allocated-zgc)
+    * [Stability Pterodactyl (>8GB)](#stability-pterodactyl-panel--less-than-8gb-allocated-g1gc)
+    * [Performance Client (4GB+)](#performance-focused--client--preferably-more-than-4gb-allocated-zgc)
+    * [Stability Client (>4GB)](#stability-focused--client--less-than-4gb-allocated-g1gc)
+* [(terrible) Explanation](#explanation)
+
+## Why not just use [Aikar](https://github.com/aikar)'s flags?
 Their GC is based on G1, it's extremely stable but extremely slow, so why should current gen servers be held back by last gen algorithms?
 
 I propose to get rid of it in favor of [ZGC](https://github.com/openjdk/zgc), why? It clears memory alongside the server instead of pausing it each time, and it's wicked fast.
 
-# Who should use these flags?
+## Who should use these flags?
 Modded servers or large networks will generally benefit the most from performance flags with increased performance and fewer TPS spikes,
 
 Smaller servers with limited resources could also see some performance gain with stability flags,
@@ -16,7 +34,7 @@ When using these flags you should try to use [GraalVM Community JDK 22](https://
 <br>
 Whether your a server, or a client. These flags won't see as much of a gain without it as it tweaks it heavily.
 
-# Stability
+## Stability + Risks
 These flags have been rigorously tested to hell and back on Beeper-MC for 4 months straight, and no instability problems have occured as a result of these flags being used so far, only uplifts in performance and consistancy.
 
 
@@ -25,7 +43,7 @@ However keep in mind that your experience with these will differ due to various 
 
 ***Use them at your own risk.*** You are on your own and void (aka Cooperly, V2K) or anybody involved (Nova) are not responsible for any damages such as crashes or in the worst case even corruption that come as a result of using these flags.
 
-# Flags
+## Flags
 - [x] [Vanilla](https://www.minecraft.net/en-us/download/server) (Not recommended, use [Leaf](https://github.com/Winds-Studio/Leaf), [Mirai](https://github.com/Dreeam-qwq/Mirai) or [Paper](https://github.com/PaperMC/Paper).)
 - [x] [Leaf](https://github.com/Winds-Studio/Leaf) / [Mirai](https://github.com/Dreeam-qwq/Mirai) / [Paper](https://github.com/PaperMC/Paper)
 - [x] [Folia](https://github.com/PaperMC/Folia)
@@ -35,7 +53,7 @@ However keep in mind that your experience with these will differ due to various 
 - [x] [NeoForge](https://github.com/neoforged/NeoForge)
 - [x] Most JVM server software, even non-minecraft (No guarantee, not recommended.)
 
-***Performance Focused / Server / More than 8GB allocated, ZGC:***
+### ***Performance Focused / Server / More than 8GB allocated, ZGC:***
 
 Use these flags on a server that wants next gen performance gain while having more than 8GB allocated
 
@@ -43,7 +61,7 @@ Use these flags on a server that wants next gen performance gain while having mo
 java -Xms8G -Xmx8G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:-ZUncommit -XX:-ZProactive -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.TuneInlinerExploration=1 -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:-UseBiasedLocking -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:AllocatePrefetchStyle=1 -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector -jar server.jar –-nogui
 ```
 
-***Stability Focused / Server / Less than 8GB allocated, G1GC:***
+### ***Stability Focused / Server / Less than 8GB allocated, G1GC:***
 
 Use these flags on a server that prefers stability over performance, or has less than 8GB allocated
 ```java
@@ -51,53 +69,53 @@ java -Xms4G -Xmx4G -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptio
 ```
 
 
-***Performance Pterodactyl Panel / More than 8GB allocated, ZGC:***
+### ***Performance Pterodactyl Panel / More than 8GB allocated, ZGC:***
 
 Use these flags on Pterodactyl Panel for performance, This is primarily for administrators, customers usually cannot change their server image or flags.
 <br>
-Use the [GraalVM Template](https://github.com/Cooperly/v2flags/releases/download/New/Pterodactyl.GraalTemplate.json) egg and add your server.jar manually
-<br>
+Get the [GraalVM Template](https://github.com/Cooperly/v2flags/releases/download/New/Pterodactyl.GraalTemplate.json) egg and add your server.jar manually
+
 Adjust CUTDOWN in startup settings to how much memory you want to reserve to the system to prevent OOMKilling, usually 1-4G should be enough depending on the load.
-<br>
+
 If you wish to not reserve memory to the OS for some reason, (i paid for all my ram sticks boy) at least adjust swap accordingly. (you could net some performance loss)
 
 ```java
 java -Xms$(({{SERVER_MEMORY}} - ({{CUTDOWN}})))M -Xmx$(({{SERVER_MEMORY}} - ({{CUTDOWN}})))M -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:-ZUncommit -XX:-ZProactive -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:AllocatePrefetchStyle=1 -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector -jar {{SERVER_JARFILE}} --nogui
 ```
 
-***Stability Pterodactyl Panel / Less than 8GB allocated, G1GC:***
+### ***Stability Pterodactyl Panel / Less than 8GB allocated, G1GC:***
 
 Use these flags on Pterodactyl Panel for stability, for administrators not for customers yada yada yada
 <br>
-Use the [GraalVM Template](https://github.com/Cooperly/v2flags/releases/download/New/Pterodactyl.GraalTemplate.json) egg and add your server.jar manually
-<br>
+Get the [GraalVM Template](https://github.com/Cooperly/v2flags/releases/download/New/Pterodactyl.GraalTemplate.json) egg and add your server.jar manually
+
 Adjust CUTDOWN in startup settings to how much memory you want to reserve to the system to prevent OOMKilling, usually 1-4G should be enough.
-<br>
+
 Set this value to 0 if your tight on memory and have swap ready (preferably set to -1) to save your server from getting killed.
 
 ```java
 java -Xms$(({{SERVER_MEMORY}} - ({{CUTDOWN}})))M -Xmx$(({{SERVER_MEMORY}} - ({{CUTDOWN}})))M -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:AllocatePrefetchStyle=3 -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.TuneInlinerExploration=1 -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:-UseBiasedLocking -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector -jar {{SERVER_JARFILE}} –-nogui
 ```
 
-***Performance Focused / Client / Preferably more than 6GB allocated, ZGC:***
+### ***Performance Focused / Client / Preferably more than 4GB allocated, ZGC:***
 
 Use these flags on a high class client that wants additional performance and less hitches, especially while using mods like ViveCraft.
 <br>
 These are not as rigorously tested as the server flags, but no additional issues should arise under normal circumstances. 
 
-You may also need to include -Xms5G and -Xmx5G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (just don't) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
+You may also need to include -Xms4G and -Xmx4G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (just don't) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
 
 ```java
 -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:-ZUncommit -XX:-ZProactive -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:AllocatePrefetchStyle=1 -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector
 ```
 
-***Stability Focused / Client / Less than 4GB allocated, G1GC:***
+### ***Stability Focused / Client / Less than 4GB allocated, G1GC:***
 
 Use these flags on a weaker client that wants a bit of additional performance, while keeping the game relatively stable.
 <br>
 These won't give you less hitches, and don't generally have as much of an impact as Performance Focused.
 
-You may also need to include -Xms5G and -Xmx5G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (just don't) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
+You may also need to include -Xms2G and -Xmx2G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (just don't) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
 
 ```java
 -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:AllocatePrefetchStyle=3 -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.CompilerConfiguration=community -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector
@@ -108,11 +126,11 @@ You may also need to include -Xms5G and -Xmx5G (or whatever memory you want allo
 
 *Don't forget to adjust -Xms and -Xmx to your server configuration, along with java path and server.jar if applicable*
 
-**Do not allocate more than 32GB on stability flags, G1GC will start to struggle. Performance flags may go as high as they need but not lower than 12GB. Using more than 20GB is generally over-overkill 99.99% of the time unless your in a heavily modded environment** 
+**Do not allocate more than 32GB on stability flags, G1GC will start to struggle. Performance flags may go as high as they need, Using more than 16GB is generally over-overkill 99.99% of the time unless your in a heavily modded environment** 
 
 *(according to documentation, untested)*
 
-# Explanation
+## Explanation
 
 ***Please try not to rely on these explanations, do your own research as I don't know how to explain things due to my anxiety***
 <br>
