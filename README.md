@@ -110,8 +110,6 @@ You may also need to include -Xms2G and -Xmx2G (or whatever memory you want allo
 
 **Using more than 16GB is generally over-overkill 99.99% of the time unless your in a heavily modded environment** 
 
-*(according to documentation, untested)*
-
 ## Explanation
 
 ***Please try not to rely on these explanations, do your own research as I don't know how to explain things due to my anxiety***
