@@ -1,5 +1,5 @@
 ### ***v2flags*** is a blazing fast set of arguments for best in class JVM performance.
-(though your most likely reading this for Minecraft performance lmfaooo :skull:)
+(though your most likely reading this for Minecraft performance)
 
 Quick Start
 =================
@@ -33,13 +33,13 @@ When using these flags you should try to use [GraalVM Community JDK 22](https://
 Whether your a server, or a client. These flags won't see as much of a gain without it as it tweaks this JDK heavily.
 
 ## Stability + Risks
-These flags have been rigorously tested to hell and back on Beeper-MC for 4 months straight, and no instability problems have occured as a result of these flags being used so far, only uplifts in performance and consistancy.
+These flags have been rigorously tested to hell and back on Protobit for 1 year, and no instability problems have occured as a result of these flags being used so far, only uplifts in performance and consistancy.
 
 
 However keep in mind that your experience with these will differ due to various hardware configurations and they haven't been dragged through the slums like Aikar's flags. 
 
 
-***Use them at your own risk.*** You are on your own and void (aka Cooperly, V2K) or anybody involved (Nova) are not responsible for any damages such as crashes or in the worst case even corruption that come as a result of using these flags.
+***Use them at your own risk.*** You are on your own and Cooperly or anybody involved are not responsible for any damages such as crashes or instability that come as a result of using these flags.
 
 ## Flags
 - [x] [Vanilla](https://www.minecraft.net/en-us/download/server) (Not recommended, use [Leaf](https://github.com/Winds-Studio/Leaf), or at the very least [Paper](https://github.com/PaperMC/Paper).)
@@ -50,12 +50,6 @@ However keep in mind that your experience with these will differ due to various 
 - [x] [Forge](https://github.com/MinecraftForge/MinecraftForge)
 - [x] [NeoForge](https://github.com/neoforged/NeoForge)
 - [x] Most JVM server software, even non-minecraft (No guarantee, not recommended.)
-
-Server-Side Stability flags were removed as they were a misrepresentation of what v2flags is capable of.
-
-The whole premise of these flags is to switch off of an outdated GC while optimizing ZGC for max performance. While G1GC did get some additional performance using the additional parameters, it's not really needed in my opinion.
-
-You can still pull those via commit history if you insist on G1GC based flags (please consider upgrading to modern standards)
 
 Experiment:
 <br>
@@ -89,11 +83,13 @@ java -Xms$(({{SERVER_MEMORY}} - ({{CUTDOWN}})))M -Xmx$(({{SERVER_MEMORY}} - ({{C
 
 ### ***High End Client, ZGC:***
 
+Stupidly CPU intensive, you will lose a lot of performance if you are not equipped with a modernish CPU.
+<br>
 Use these flags on a high end client that wants additional performance and less hitches, especially while using mods like ViveCraft.
 <br>
 These are not as rigorously tested as the server flags, but no additional issues should arise under normal circumstances. 
 
-You may also need to include -Xms6G and -Xmx6G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (just don't) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
+You may also need to include -Xms6G and -Xmx6G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (use Prism) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
 
 ```java
 -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:-ZUncommit -XX:-ZProactive -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:AllocatePrefetchStyle=3 -XX:+UseFastStosb -XX:+UseNewLongLShift -XX:+UseXmmI2D -XX:+UseXmmI2F -XX:+UseXmmLoadAndClearUpper -XX:+UseXmmRegToRegMoveAll -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector
@@ -105,7 +101,7 @@ Use these flags on a weaker client that wants a bit of additional performance, b
 <br>
 These won't give you as much of an impact as Performance Focused, and are not suggested for using mods like ViveCraft.
 
-You may also need to include -Xms2G and -Xmx2G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (just don't) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
+You may also need to include -Xms2G and -Xmx2G (or whatever memory you want allocated) if you are running this on the vanilla launcher, (use Prism) This is primarily made for MultiMC based launchers (such as Prism) which disallow those values being present.
 
 ```java
 -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -Dterminal.jline=false -Dterminal.ansi=true -Djline.terminal=jline.UnsupportedTerminal -Dlog4j2.formatMsgNoLookups=true -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:AllocatePrefetchStyle=3 -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.CompilerConfiguration=community -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseStringDeduplication -XX:+UseAES -XX:+UseAESIntrinsics -XX:+UseFMA -XX:+UseLoopPredicate -XX:+RangeCheckElimination -XX:+EliminateLocks -XX:+DoEscapeAnalysis -XX:+UseCodeCacheFlushing -XX:+SegmentedCodeCache -XX:+UseFastJNIAccessors -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+UseThreadPriorities -XX:+OmitStackTraceInFastThrow -XX:+TrustFinalNonStaticFields -XX:ThreadPriorityPolicy=1 -XX:+UseInlineCaches -XX:+RewriteBytecodes -XX:+RewriteFrequentPairs -XX:-DontCompileHugeMethods -XX:+UseFPUForSpilling -XX:+UseFastStosb -XX:+UseNewLongLShift -XX:+UseXmmI2D -XX:+UseXmmI2F -XX:+UseXmmLoadAndClearUpper -XX:+UseXmmRegToRegMoveAll -XX:+UseVectorCmov -XX:+UseXMMForArrayCopy -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -Dfile.encoding=UTF-8 -Xlog:async -Djava.security.egd=file:/dev/urandom --add-modules jdk.incubator.vector
@@ -118,9 +114,7 @@ You may also need to include -Xms2G and -Xmx2G (or whatever memory you want allo
 
 ## Explanation
 
-***Please try not to rely on these explanations, do your own research as I don't know how to explain things due to my anxiety***
-<br>
-***Kudos to Nova for filling some things here with more understandable information***
+***Please try not to rely on these explanations, do your own research as I don't know how to explain things due to lacking social experience***
 
 > [!NOTE]
 > For most of the flags below `-XX:+UnlockExperimentalVMOptions` and/or `-XX:+UnlockDiagnosticVMOptions` are required.
@@ -258,7 +252,7 @@ Tells java what the name of the jar executable is
 
 > –-nogui
 
-Forces games like minecraft to not display the funky gui, does not matter in non graphical enviroments, I personally remove this flag when running JVM servers on my machine.
+Forces games like minecraft to not display the funky gui, does not matter in non graphical enviroments.
 
 <br>
 
