@@ -1,6 +1,6 @@
 ### ***v2flags*** was a blazing fast set of arguments for best in class JVM performance.
 
-This repository is **unmaintained and unsupported** due to the project where this was primarily being used in being tainted by a contributor (for both this project and the other) that I looked up to exhibiting disgusting and unacceptable behavior. I do not want to continue working on this or any similar projects and wish to move on from this period of my life which has hurt me deeply, I'm sorry.
+This repository is **unmaintained and unsupported** due to the project where this was being used in being discontinued due to severe demotivation due to many key-contributors leaving. I'm sorry.
 
 ***Your living on the edge***, everything provided here is **used at your own risk**, I will not be providing support in any way.
 
