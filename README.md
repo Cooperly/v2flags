@@ -41,7 +41,7 @@ You may also need to include -Xms6G and -Xmx6G at the start of these flags (repl
 
 ## Explanation
 
-***Please do your own research if you must, a lot of these explanations were made when I wasn't very good at explaining things, and I do not wish to update all of them properly at the moment.***
+***Please do your own research, a lot of these explanations were made when I wasn't very good at explaining things, I haven't covered all the flags properly and removed everything that hasn't been explained properly, and I do not wish to update this section at the moment.***
 
 <br>
 
